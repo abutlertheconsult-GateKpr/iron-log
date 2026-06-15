@@ -1,13 +1,12 @@
 // IRON LOG — Service Worker
-// Caches the app shell for full offline use
-
-const CACHE = 'ironlog-v1';
+const CACHE = 'ironlog-v2';
+const BASE = '/iron-log';
 const ASSETS = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  '/icon-192.png',
-  '/icon-512.png',
+  BASE + '/',
+  BASE + '/index.html',
+  BASE + '/manifest.json',
+  BASE + '/icon-192.png',
+  BASE + '/icon-512.png',
   'https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap'
 ];
 
@@ -33,24 +32,23 @@ self.addEventListener('activate', e => {
 
 // Fetch — cache first, fallback to network
 self.addEventListener('fetch', e => {
-  // Skip non-GET and cross-origin Firebase requests (always need network)
   if (e.request.method !== 'GET') return;
   if (e.request.url.includes('firestore.googleapis.com')) return;
+  if (e.request.url.includes('fonts.googleapis.com') ||
+      e.request.url.includes('fonts.gstatic.com')) return;
 
   e.respondWith(
     caches.match(e.request).then(cached => {
       if (cached) return cached;
       return fetch(e.request).then(response => {
-        // Cache successful same-origin responses
         if (response && response.status === 200 && response.type === 'basic') {
           const clone = response.clone();
           caches.open(CACHE).then(cache => cache.put(e.request, clone));
         }
         return response;
       }).catch(() => {
-        // Offline fallback — return index.html for navigation requests
         if (e.request.mode === 'navigate') {
-          return caches.match('/index.html');
+          return caches.match(BASE + '/index.html');
         }
       });
     })
