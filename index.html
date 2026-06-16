@@ -1345,7 +1345,7 @@ function renderSettings(){
         </div>`).join('')}
     </div>
     <div style="font-size:9px;text-transform:uppercase;letter-spacing:1.5px;color:var(--white4);font-weight:700;margin:14px 0 6px">Custom Sounds (${(S.customSounds||[]).length}/5)</div>
-    ${renderCustomSoundSlots()}
+    ${(()=>{try{return renderCustomSoundSlots();}catch(e){return "";}})()}
     ${(S.customSounds||[]).length<5?`<button class="btn btn-orange btn-sm" style="width:100%;margin-top:6px" onclick="openCustomSoundModal()">+ Add Custom Sound</button>`:''}
   </div>
   <div class="settings-section">
@@ -1708,9 +1708,13 @@ renderStats();
 <script>
 if('serviceWorker' in navigator){
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('sw.js')
-      .then(reg => console.log('SW registered:', reg.scope))
-      .catch(err => console.log('SW error:', err));
+    // Only register SW when hosted on GitHub Pages, not locally or in preview
+    const isGitHubPages = location.hostname.includes('github.io');
+    if(isGitHubPages){
+      navigator.serviceWorker.register('sw.js')
+        .then(reg => console.log('SW registered:', reg.scope))
+        .catch(err => console.log('SW error:', err));
+    }
   });
 }
 </script>
