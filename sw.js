@@ -1,5 +1,5 @@
 // IRON LOG — Service Worker
-const CACHE = 'EYSFIT-v2';
+const CACHE = 'EYSFIT-v1';
 const BASE = '/EYSFIT';
 const ASSETS = [
   BASE + '/',
