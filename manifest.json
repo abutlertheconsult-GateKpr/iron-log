@@ -1,9 +1,9 @@
 {
-  "name": "IRON LOG",
-  "short_name": "IRON LOG",
+  "name": "EYSFIT",
+  "short_name": "EYSFIT",
   "description": "CrossFit-style workout tracker — log sessions, track stats, run intervals",
-  "start_url": "/iron-log/index.html",
-  "scope": "/iron-log/",
+  "start_url": "/EYSFIT/index.html",
+  "scope": "/EYSFIT/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#080809",
