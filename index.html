@@ -3,21 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>IRON LOG</title>
+<title>EYSFIT</title>
 
 <!-- PWA -->
 <link rel="manifest" href="manifest.json">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="IRON LOG">
+<meta name="apple-mobile-web-app-title" content="EYSFIT">
 <meta name="theme-color" content="#ff4d00">
 <link rel="apple-touch-icon" href="icon-192.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-/* ── IRON LOG — MODERN CROSSFIT DESIGN SYSTEM ── */
+/* ── EYSFIT — MODERN CROSSFIT DESIGN SYSTEM ── */
 :root{
   /* Base */
   --bg:#080809;
@@ -28,8 +28,8 @@
   --border:rgba(255,255,255,0.08);
   --border2:rgba(255,255,255,0.14);
   /* Orange — electric, saturated */
-  --orange:#ff4d00;
-  --orange2:#ff6a1f;
+  --orange:#bb8000;
+  --orange2:#b6721f;
   --orange3:#ff9555;
   --orange-glow:rgba(255,77,0,0.15);
   --orange-glow2:rgba(255,77,0,0.08);
@@ -80,7 +80,7 @@ select option{background:var(--surface2)}
 /* ── PAGES ── */
 .page{display:none}.page.active{display:block}
 .page-header{padding:16px 16px 14px;border-bottom:1px solid var(--border);background:rgba(8,8,9,0.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);position:sticky;top:0;z-index:50}
-.page-title{font-family:var(--font-display);font-size:36px;font-weight:900;letter-spacing:3px;color:var(--white);line-height:1;text-transform:uppercase}
+.page-title{font-family:var(--font-display);font-size:30px;font-weight:600;letter-spacing:3px;color:var(--white);line-height:1;text-transform:uppercase}
 .page-title span{color:var(--orange)}
 .page-sub{color:var(--white4);font-size:10px;letter-spacing:2px;text-transform:uppercase;margin-top:1px;font-weight:600}
 
@@ -310,6 +310,19 @@ select option{background:var(--surface2)}
 <body>
 <div id="app">
 <div id="content">
+
+  <!-- HEADER -->
+<header class="header">
+  <div class="header-top">
+    <div class="sigil">
+      <img src="logo/logo-192.png" alt="EYSFIT Logo" width="36" height="36" style="display: block; object-fit: contain;">
+    </div>
+    <div>
+      <div class="app-title">EYSFIT</div>
+      <div class="app-sub">Discipline · Consistant · Growth</div>
+    </div>
+  </div>
+</header>
 
 <!-- STATS -->
 <div class="page active" id="page-stats">
