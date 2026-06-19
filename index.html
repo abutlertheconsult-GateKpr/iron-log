@@ -151,6 +151,12 @@ select option{background:var(--surface2)}
 
 /* ── WORKOUT CARDS ── */
 .wsc{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--orange);border-radius:2px;margin-bottom:8px;overflow:hidden}
+.wsc.group-superset{border-left-color:#38b6ff;box-shadow:0 0 0 1px rgba(56,182,255,0.12)}
+.wsc.group-triset{border-left-color:#8c5cff;box-shadow:0 0 0 1px rgba(140,92,255,0.12)}
+.group-divider{display:flex;align-items:center;gap:10px;padding:10px 16px;margin:12px 0 6px;border-radius:10px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);color:var(--white4);font-size:11px;text-transform:uppercase;letter-spacing:1px}
+.group-divider::before,.group-divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,0.08)}
+.group-divider span{font-weight:700;color:var(--orange)}
+.group-badge{display:inline-flex;align-items:center;gap:6px;padding:2px 8px;border-radius:999px;background:rgba(232,80,10,0.12);color:var(--orange);font-size:9px;font-weight:700;letter-spacing:.75px;text-transform:uppercase;margin-top:4px}
 .wsh{padding:12px 14px;display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.05);border-bottom:1px solid rgba(255,255,255,0.06)}
 .wsb{padding:8px 13px}
 .set-hdr{display:grid;grid-template-columns:24px 1fr 1fr 70px 28px 28px 28px;gap:4px;margin-bottom:5px}
@@ -190,6 +196,9 @@ select option{background:var(--surface2)}
 .bt-phase-label{font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--orange);margin-bottom:2px}
 .bt-ex-name{font-family:var(--font-display);font-size:18px;font-weight:800;color:var(--white);letter-spacing:1px;line-height:1.1}
 .bt-set-info{font-size:10px;color:var(--white4);font-weight:500;letter-spacing:.5px;margin-top:2px}
+.bt-current-workout{font-size:11px;color:var(--white3);letter-spacing:.7px;text-transform:uppercase;padding:0 14px 8px}
+.wsc.active-ex{border-color:var(--green3);box-shadow:0 0 0 1px rgba(52,208,88,0.18)}
+.set-row.active-row,.break-row.active-row{background:rgba(255,255,255,0.08);border-color:var(--orange)}
 .bt-countdown{font-family:var(--font-display);font-size:80px;font-weight:900;letter-spacing:2px;color:var(--white);text-align:center;line-height:1;padding:0 14px 2px;transition:color .3s}
 .bt-countdown.pulse{animation:pulse-fire 0.45s ease-in-out infinite alternate}
 @keyframes pulse-fire{
@@ -234,6 +243,13 @@ select option{background:var(--surface2)}
 
 /* ── STAT EDIT ── */
 .stat-edit-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.identity-card{display:flex;flex-wrap:wrap;gap:12px;padding:18px;border:1px solid rgba(255,255,255,0.08);border-radius:18px;background:rgba(255,255,255,0.04);margin-bottom:12px}
+.identity-field{flex:1 1 180px;min-width:180px;display:flex;flex-direction:column;gap:6px}
+.identity-field label{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--white4);font-weight:700}
+.identity-input{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px 14px;color:var(--white);font-size:13px}
+.gender-toggle{display:flex;gap:8px;flex-wrap:wrap}
+.gender-toggle button{flex:1 1 90px;border:1px solid rgba(255,255,255,0.12);border-radius:999px;padding:10px 14px;background:rgba(255,255,255,0.03);color:var(--white4);font-size:12px;font-weight:700;cursor:pointer;transition:all .15s}
+.gender-toggle button.active{background:rgba(255,77,0,0.14);border-color:var(--orange);color:var(--orange)}
 .stat-edit-item{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:11px}
 .stat-edit-item label{font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--white4);display:block;margin-bottom:5px;font-weight:700}
 .cycle-sel{margin-top:4px;font-size:11px;background:var(--surface3);border:1px solid var(--border);color:var(--white3);border-radius:2px}
@@ -252,8 +268,7 @@ select option{background:var(--surface2)}
 .empty-state svg{width:60px;height:60px;stroke:var(--border2);fill:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;margin:0 auto 16px;display:block}
 .empty-state h3{font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--white3);margin-bottom:6px;letter-spacing:1px;text-transform:uppercase}
 .empty-state p{font-size:12px;color:var(--white4);margin-bottom:16px;letter-spacing:.3px}
-
-/* ── IMG UPLOAD ── */
+.empty-state button{position:relative;z-index:1}
 .img-placeholder{width:100%;height:110px;background:var(--surface2);border:1px dashed var(--border2);border-radius:2px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;margin-bottom:8px;transition:border-color .12s}
 .img-placeholder:hover{border-color:var(--orange)}
 .img-placeholder svg{width:26px;height:26px;stroke:var(--white4);fill:none;stroke-width:1.5;margin-bottom:6px}
@@ -386,6 +401,7 @@ select option{background:var(--surface2)}
         <button class="btn btn-danger btn-sm" onclick="stopTimer()">■ Stop</button>
       </div>
     </div>
+    <div class="bt-current-workout" id="bt-current-workout">Current exercise: —</div>
     <div class="bt-countdown" id="bt-countdown">0:00</div>
     <div class="bt-progress" style="margin-bottom:4px"><div class="bt-progress-fill" id="bt-progress-fill" style="width:100%"></div></div>
     <div style="display:flex;align-items:center;justify-content:space-between;padding:0 14px 4px">
@@ -473,6 +489,7 @@ select option{background:var(--surface2)}
   <div class="mrow"><label>Category</label><select id="ex-cat" onchange="populateExercisePicker()"><option value="">-- Select --</option></select></div>
   <div class="mrow"><label>Exercise</label><select id="ex-name"><option value="">-- Select category first --</option></select></div>
   <div class="mrow"><label>Or type</label><input id="ex-custom" placeholder="Custom name..."></div>
+  <div class="mrow"><label>Group</label><select id="ex-group-type"><option value="">Normal</option><option value="Superset">Superset</option><option value="Triset">Triset</option></select></div>
   <div style="margin:10px 0 4px;font-size:11px;color:var(--white4);text-transform:uppercase;letter-spacing:.5px">Sets</div>
   <div class="set-hdr"><span>#</span><span>Reps</span><span>Weight</span><span>Time</span><span></span><span>Copy</span><span>Del</span></div>
   <div id="ex-sets-list"></div>
@@ -612,7 +629,7 @@ select option{background:var(--surface2)}
 <script>
 // ═══════════════ DEFAULTS ═══════════════
 const DEFAULT_STAT_FIELDS=[
-  {key:'age',label:'Age',unit:'yrs',cycle:'yearly',type:'info'},
+  {key:'dob',label:'Date of Birth',unit:'',cycle:'yearly',type:'info'},
   {key:'gender',label:'Gender',unit:'',cycle:'yearly',type:'info'},
   {key:'weight',label:'Weight',unit:'lbs',cycle:'weekly',type:'measurement'},
   {key:'height',label:'Height',unit:'in',cycle:'yearly',type:'measurement'},
@@ -669,13 +686,21 @@ const FAMOUS_ROUTINES=[
 ];
 
 // ═══════════════ STATE ═══════════════
-let S={statHistory:[],statFields:[...DEFAULT_STAT_FIELDS],goals:{},workoutLog:{},customRoutines:[],links:[],firebaseConfig:{},exercises:JSON.parse(JSON.stringify(DEF_EX)),emptyStateImage:null};
+let S={statHistory:[],statFields:[...DEFAULT_STAT_FIELDS],goals:{},workoutLog:{},customRoutines:[],links:[],customSounds:[],firebaseConfig:{},exercises:JSON.parse(JSON.stringify(DEF_EX)),emptyStateImage:null};
 // ── AUDIO INIT (must be before loadS) ──
 let audioCtx=null;
 let soundOn=true;
 let currentSound='boxing-bell';
 
-function loadS(){try{const d=localStorage.getItem('ironlog_v3');if(d){const p=JSON.parse(d);S={...S,...p};if(!p.exercises)S.exercises=JSON.parse(JSON.stringify(DEF_EX));}}catch(e){}}
+function normalizeStatFields(savedFields=[]){
+  const savedMap={};
+  (savedFields||[]).forEach(f=>{if(f&&f.key)savedMap[f.key]=f;});
+  const merged=[];
+  DEFAULT_STAT_FIELDS.forEach(def=>{merged.push({...def,...(savedMap[def.key]||{})});});
+  Object.values(savedMap).forEach(f=>{if(!DEFAULT_STAT_FIELDS.some(def=>def.key===f.key))merged.push(f);});
+  return merged;
+}
+function loadS(){try{const d=localStorage.getItem('ironlog_v3');if(d){const p=JSON.parse(d);S={...S,...p};if(!p.exercises)S.exercises=JSON.parse(JSON.stringify(DEF_EX));S.statFields=normalizeStatFields(p.statFields||S.statFields);} }catch(e){} }
 function saveS(){try{localStorage.setItem('ironlog_v3',JSON.stringify(S));}catch(e){}}
 loadS();
 currentSound=(S.settings&&S.settings.sound)||'boxing-bell';
@@ -748,13 +773,21 @@ const SOUND_LIBRARY={
   }
 };
 
-function getSoundLib(){return SOUND_LIBRARY[currentSound]||SOUND_LIBRARY['boxing-bell'];}
+function getSoundLib(){
+  if(currentSound?.startsWith('custom:')){
+    const custom=S.customSounds?.find(s=>s.id===currentSound);
+    if(custom){return {tick:()=>playCustomSound(custom),setEnd:()=>playCustomSound(custom),breakStart:()=>playCustomSound(custom),complete:()=>playCustomSound(custom)}}
+  }
+  return SOUND_LIBRARY[currentSound]||SOUND_LIBRARY['boxing-bell'];
+}
+function playCustomSound(sound){if(!soundOn||!sound||!sound.src)return;const audio=new Audio(sound.src);audio.volume=0.85;audio.play().catch(()=>{});}
 function soundTick(){getSoundLib().tick();}
 function soundSetEnd(){getSoundLib().setEnd();}
 function soundBreakStart(){getSoundLib().breakStart();}
 function soundWorkoutComplete(){getSoundLib().complete();}
-function setSound(id){currentSound=id;if(!S.settings)S.settings={};S.settings.sound=id;saveS();renderSettings();toast('Sound: '+SOUND_LIBRARY[id].name);}
+function setSound(id){currentSound=id;if(!S.settings)S.settings={};S.settings.sound=id;saveS();renderSettings();const built=SOUND_LIBRARY[id];const custom=S.customSounds?.find(s=>s.id===id);toast('Sound: '+(built?.name||custom?.name||'Custom sound'));}
 function previewSound(id){const prev=currentSound;currentSound=id;soundSetEnd();currentSound=prev;}
+function previewCustomSound(id){const sound=(S.customSounds||[]).find(s=>s.id===id);if(!sound||!sound.src)return;const audio=new Audio(sound.src);audio.volume=0.85;audio.play().catch(()=>{});}
 function toggleSound(){soundOn=!soundOn;const b=document.getElementById('bt-sound-btn');b.textContent=soundOn?'🔔 Sound':'🔕 Sound';b.className='bt-sound-toggle'+(soundOn?' on':'');}
 
 // ═══════════════ DRUM PICKER ═══════════════
@@ -911,13 +944,23 @@ function renderToday(){
     return;
   }
   document.getElementById('start-timer-fab').style.display='block';
+  let lastGroup='';
   log.forEach((ex,ei)=>{
-    html+=`<div class="wsc" data-ei="${ei}" draggable="true">
+    const groupClass=ex.groupType?(' group-'+ex.groupType.toLowerCase()):'';
+    const groupBadge=ex.groupType?`<div class="group-badge">${ex.groupType}</div>`:'';
+    if(ex.groupType && ex.groupType!==lastGroup){
+      html+=`<div class="group-divider"><span>${ex.groupType}</span>Block start</div>`;
+    }
+    lastGroup=ex.groupType||'';
+    html+=`<div class="wsc${groupClass}" data-ei="${ei}" draggable="true">
       <div class="wsh">
         <div class="drag-handle" title="Drag to reorder">⠿</div>
         <div style="flex:1">
           <div style="font-size:13px;font-weight:600;letter-spacing:.3px">${ex.name}</div>
-          <div style="font-size:10px;color:var(--white4);text-transform:uppercase;letter-spacing:.5px">${ex.category||''} ${ex.totalTime&&ex.totalTime!=='0:00'?'· '+ex.totalTime:''}</div>
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:2px">
+            <div style="font-size:10px;color:var(--white4);text-transform:uppercase;letter-spacing:.5px">${ex.category||''}${ex.totalTime&&ex.totalTime!=='0:00'?' · '+ex.totalTime:''}</div>
+            ${groupBadge}
+          </div>
         </div>
         <button class="btn btn-danger btn-sm btn-icon" onclick="removeExerciseToday(${ei})">✕</button>
       </div>
@@ -933,18 +976,19 @@ function renderToday(){
   });
   document.getElementById('today-panel').innerHTML=html;
   initDragDrop();
+  if(document.getElementById('boxer-timer').classList.contains('active')) highlightActiveExercise();
 }
 function buildSessionRows(rows,ei){
   let html='';let setIdx=0;
   rows.forEach((row,ri)=>{
     if(row.type==='break'){
-      html+=`<div class="break-row"><span class="break-label">⏱ Break</span>
+      html+=`<div class="break-row" data-ri="${ri}"><span class="break-label">⏱ Break</span>
         <button class="break-time-btn" data-sec="${row.sec||60}" onclick="editSessionBreak(${ei},${ri},this)">${fmtSec(row.sec||60)}</button>
         <span style="flex:1"></span>
         <button class="btn btn-danger btn-sm btn-icon" onclick="removeSessionRow(${ei},${ri})">✕</button></div>`;
     } else {
       setIdx++;
-      html+=`<div class="set-row">
+      html+=`<div class="set-row" data-ri="${ri}">
         <span class="set-num">${setIdx}</span>
         <input value="${row.reps||''}" placeholder="12" onchange="updateSessionRow(${ei},${ri},'reps',this.value)">
         <input value="${row.lbs||''}" placeholder="lbs" onchange="updateSessionRow(${ei},${ri},'lbs',this.value)">
@@ -1016,7 +1060,7 @@ function duplicateSessionRow(ei,ri){
 }
 function openDatePicker(){document.getElementById('session-date-input').value=sessionDate;openModal('modal-date-picker');}
 function applySessionDate(){const d=document.getElementById('session-date-input').value;if(d){sessionDate=d;}closeModal('modal-date-picker');renderToday();toast('Session: '+sessionDate);}
-function finishWorkout(){const log=S.workoutLog[sessionDate];if(!log||!log.length){toast('No exercises to save');return;}saveS();toast('Workout saved ✓');}
+function finishWorkout(){const log=S.workoutLog[sessionDate];if(!log||!log.length){toast('No exercises to save');return;}saveS();renderToday();renderCalendar();toast('Workout saved ✓');}
 
 function openAddExercise(){
   const sel=document.getElementById('ex-cat');
@@ -1034,7 +1078,7 @@ function populateExercisePicker(){
   sel.innerHTML='<option value="">-- Select exercise --</option>'+(S.exercises[cat]||[]).map(e=>`<option value="${e}">${e}</option>`).join('');
 }
 function confirmAddExercise(){
-  const cat=document.getElementById('ex-cat').value;const selN=document.getElementById('ex-name').value;const cust=document.getElementById('ex-custom').value.trim();const name=cust||selN;
+  const cat=document.getElementById('ex-cat').value;const selN=document.getElementById('ex-name').value;const cust=document.getElementById('ex-custom').value.trim();const groupType=document.getElementById('ex-group-type').value||'';const name=cust||selN;
   if(!name){toast('Select or type an exercise');return;}
   const rows=[];
   const list=document.getElementById('ex-sets-list');
@@ -1049,7 +1093,7 @@ function confirmAddExercise(){
   });
   const totalSec=rows.reduce((a,r)=>a+(r.sec||0),0);
   if(!S.workoutLog[sessionDate])S.workoutLog[sessionDate]=[];
-  S.workoutLog[sessionDate].push({name,category:cat,rows,totalTime:fmtSec(totalSec)});
+  S.workoutLog[sessionDate].push({name,category:cat,groupType:groupType||'',rows,totalTime:fmtSec(totalSec)});
   saveS();closeModal('modal-add-exercise');renderToday();toast('Exercise added');
 }
 
@@ -1102,18 +1146,18 @@ let timerQueue=[];let timerIdx=0;let timerSec=0;let timerTotal=0;let timerRunnin
 function buildTimerQueue(){
   const log=S.workoutLog[sessionDate]||[];
   const q=[];
-  log.forEach(ex=>{
+  log.forEach((ex,ei)=>{
     (ex.rows||[]).forEach((row,ri)=>{
       if(row.type==='set'){
         const setNum=(ex.rows||[]).slice(0,ri).filter(r=>r.type==='set').length+1;
         const totalSets=(ex.rows||[]).filter(r=>r.type==='set').length;
-        q.push({label:'WORKOUT',name:ex.name,info:'Set '+setNum+' of '+totalSets,sec:row.sec||30,isBreak:false});
+        q.push({label:'WORKOUT',name:ex.name,info:'Set '+setNum+' of '+totalSets,sec:row.sec||30,isBreak:false,ei,ri,groupType:ex.groupType||''});
       } else if(row.type==='break'){
-        q.push({label:'BREAK',name:'Rest',info:'',sec:row.sec||60,isBreak:true});
+        q.push({label:'BREAK',name:'Rest',info:'',sec:row.sec||60,isBreak:true,ei,ri,groupType:ex.groupType||''});
       }
     });
     if(!ex.rows||!ex.rows.length){
-      q.push({label:'WORKOUT',name:ex.name,info:'Set 1',sec:30,isBreak:false});
+      q.push({label:'WORKOUT',name:ex.name,info:'Set 1',sec:30,isBreak:false,ei});
     }
   });
   return q;
@@ -1136,12 +1180,17 @@ function loadTimerItem(){
   document.getElementById('bt-phase-label').textContent=item.label;
   document.getElementById('bt-ex-name').textContent=item.name;
   document.getElementById('bt-set-info').textContent=item.info||'';
+  let workoutText='Current exercise: '+item.name;
+  if(item.isBreak) workoutText='Current exercise: Rest';
+  else if(item.groupType) workoutText='Current exercise: '+item.groupType+' · '+item.name;
+  document.getElementById('bt-current-workout').textContent=workoutText;
   document.getElementById('bt-queue-info').textContent=(timerIdx+1)+' / '+timerQueue.length;
   updateCountdownDisplay();
   document.getElementById('bt-playpause').textContent='▶';
   document.getElementById('bt-countdown').classList.remove('pulse');
   // Highlight active row in queue
   document.querySelectorAll('.bt-queue-row').forEach((r,i)=>r.classList.toggle('active-row',i===timerIdx));
+  highlightActiveExercise();
 }
 
 function updateCountdownDisplay(){
@@ -1153,6 +1202,24 @@ function updateCountdownDisplay(){
 }
 
 function toggleTimer(){if(timerRunning){pauseTimer();}else{startTimer();}}
+
+function highlightActiveExercise(){
+  document.querySelectorAll('.wsc').forEach(card=>card.classList.remove('active-ex'));
+  document.querySelectorAll('.set-row, .break-row').forEach(row=>row.classList.remove('active-row'));
+  const item=timerQueue[timerIdx];
+  if(!item||item.ei===undefined)return;
+  const card=document.querySelector('.wsc[data-ei="'+item.ei+'"]');
+  if(card)card.classList.add('active-ex');
+  if(item.ri!==undefined){
+    const row=card?.querySelector('[data-ri="'+item.ri+'"]');
+    if(row)row.classList.add('active-row');
+  }
+}
+
+function clearActiveWorkoutHighlight(){
+  document.querySelectorAll('.wsc').forEach(card=>card.classList.remove('active-ex'));
+  document.querySelectorAll('.set-row, .break-row').forEach(row=>row.classList.remove('active-row'));
+}
 
 function startTimer(){
   timerRunning=true;
@@ -1180,10 +1247,12 @@ function advanceTimer(){
     document.getElementById('bt-countdown').textContent='DONE';
     document.getElementById('bt-countdown').classList.remove('pulse');
     document.getElementById('bt-ex-name').textContent='Workout complete!';
+    document.getElementById('bt-current-workout').textContent='Current exercise: —';
     document.getElementById('bt-set-info').textContent='';
     document.getElementById('bt-queue-info').textContent='All sets finished';
     document.getElementById('bt-playpause').textContent='▶';
     document.querySelectorAll('.bt-queue-row').forEach(r=>r.classList.remove('active-row'));
+    clearActiveWorkoutHighlight();
     toast('Workout complete! 🏆');return;
   }
   loadTimerItem();renderQueuePanel();startTimer();
@@ -1193,6 +1262,7 @@ function stopTimer(){
   clearInterval(timerInterval);timerRunning=false;
   document.getElementById('boxer-timer').classList.remove('active');
   document.getElementById('start-timer-fab').style.display='block';
+  clearActiveWorkoutHighlight();
 }
 
 // ═══════════════ HELPERS ═══════════════
@@ -1222,10 +1292,16 @@ function renderStats(){
     html+=`<div class="section-divider"><span>${gl}</span></div><div class="stat-grid">`;
     fields.forEach(f=>{
       const val=latest.values[f.key];const pv=prev?prev.values[f.key]:null;let dh='';
-      if(pv!=null&&pv!==''&&!isNaN(+val)&&!isNaN(+pv)){const d=(+val-+pv).toFixed(1);const cls=d>0?'up':d<0?'down':'neutral';dh=`<div class="stat-diff ${cls}">${d>0?'▲':d<0?'▼':'—'} ${Math.abs(d)} ${f.unit}</div>`;}
+      if(f.key==='dob' && val){
+        const age=calcAgeFromDob(val);
+        dh=`<div style="font-size:11px;color:var(--white3);margin-top:6px">Age: ${age} yrs</div>`;
+      } else if(pv!=null&&pv!==''&&!isNaN(+val)&&!isNaN(+pv)){
+        const d=(+val-+pv).toFixed(1);const cls=d>0?'up':d<0?'down':'neutral';dh=`<div class="stat-diff ${cls}">${d>0?'▲':d<0?'▼':'—'} ${Math.abs(d)} ${f.unit}</div>`;
+      }
       const cyc=(latest.cycles&&latest.cycles[f.key])||f.cycle||'';let gh='';
-      if(S.goals[f.key]&&!isNaN(+val)&&!isNaN(+S.goals[f.key])){const p=Math.min(100,Math.round((+val/+S.goals[f.key])*100));const bc=p>=100?'var(--green3)':p>=75?'var(--orange2)':'var(--red3)';gh=`<div class="goal-bar-wrap"><div class="goal-bar" style="width:${p}%;background:${bc}"></div></div><div class="goal-pct">${p}% of goal (${S.goals[f.key]} ${f.unit})</div>`;}
-      html+=`<div class="stat-card"><div class="stat-label">${f.label}</div><div><span class="stat-value">${val}</span><span class="stat-unit">${f.unit}</span></div>${dh}${gh}${cyc?`<div style="font-size:9px;color:var(--orange);text-transform:uppercase;letter-spacing:.5px;margin-top:3px">↻ ${cyc}</div>`:''}`;
+      if(f.key!=='dob'&&S.goals[f.key]&&!isNaN(+val)&&!isNaN(+S.goals[f.key])){const p=Math.min(100,Math.round((+val/+S.goals[f.key])*100));const bc=p>=100?'var(--green3)':p>=75?'var(--orange2)':'var(--red3)';gh=`<div class="goal-bar-wrap"><div class="goal-bar" style="width:${p}%;background:${bc}"></div></div><div class="goal-pct">${p}% of goal (${S.goals[f.key]} ${f.unit})</div>`;}
+      const displayValue = f.key==='dob' ? (val||'Not set') : val;
+      html+=`<div class="stat-card"><div class="stat-label">${f.label}</div><div><span class="stat-value">${displayValue}</span><span class="stat-unit">${f.unit}</span></div>${dh}${gh}${cyc?`<div style="font-size:9px;color:var(--orange);text-transform:uppercase;letter-spacing:.5px;margin-top:3px">↻ ${cyc}</div>`:''}`;
       if(f.type==='custom')html+=`<button type="button" onclick="removeStat('${f.key}')" style="margin-top:4px;font-size:10px;color:var(--red3);background:none;border:none;cursor:pointer;text-decoration:underline">remove</button>`;
       html+=`</div>`;
     });html+=`</div>`;
@@ -1235,22 +1311,40 @@ function renderStats(){
 }
 function openEditStats(){
   const latest=S.statHistory.length?S.statHistory[S.statHistory.length-1]:null;
-  document.getElementById('stat-entry-date').value=new Date().toISOString().split('T')[0];
+  document.getElementById('stat-entry-date').value=latest?latest.date:new Date().toISOString().split('T')[0];
   const groups={info:'Identity',measurement:'Body Measurements',performance:'Performance',health:'Health Markers',custom:'Custom Metrics'};
   const grouped={};S.statFields.forEach(f=>{const g=f.type||'custom';if(!grouped[g])grouped[g]=[];grouped[g].push(f);});
   let html='';
   Object.entries(groups).forEach(([gk,gl])=>{
     if(!grouped[gk]||!grouped[gk].length)return;
-    html+=`<div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--orange);margin:12px 0 8px;font-weight:500">${gl}</div><div class="stat-edit-grid">`;
+    if(gk==='info'){
+      const dobField=grouped[gk].find(f=>f.key==='dob')||{key:'dob',label:'Date of Birth',unit:'',cycle:'yearly',type:'info'};
+      const genderField=grouped[gk].find(f=>f.key==='gender')||{key:'gender',label:'Gender',unit:'',cycle:'yearly',type:'info'};
+      const dobVal=latest?(latest.values.dob||''):'';
+      const genderVal=latest?(latest.values.gender||''):'';
+      html+=`<div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--orange);margin:12px 0 8px;font-weight:500">${gl}</div><div class="identity-card"><div class="identity-field"><label>${dobField.label}</label><input id="dob-input" class="identity-input" type="date" data-stat-key="dob" value="${dobVal}" onchange="updateAgePreview()"><div id="age-preview" style="font-size:11px;color:var(--white3);margin-top:4px">${dobVal?`Age: ${calcAgeFromDob(dobVal)} yrs`:'Enter DOB to calculate age'}</div></div><div class="identity-field"><label>${genderField.label}</label><input type="hidden" data-stat-key="gender" id="gender-input" value="${genderVal}"><div class="gender-toggle"><button type="button" class="${genderVal==='Male'?'active':''}" onclick="setGender('Male')">Male</button><button type="button" class="${genderVal==='Female'?'active':''}" onclick="setGender('Female')">Female</button><button type="button" class="${genderVal==='Other'?'active':''}" onclick="setGender('Other')">Other</button></div></div></div>`;
+      return;
+    }
+    html+=`<div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--orange);margin:12px 0 8px;font-weight:500">${gl}</div>`;
+    if(gk==='measurement'){
+      const defaultFreq=latest?(latest.measurementFrequency||'monthly'):'monthly';
+      html+=`<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;padding:12px 14px;border:1px solid rgba(255,255,255,0.08);border-radius:12px;background:rgba(255,255,255,0.03)"><div style="font-size:11px;color:var(--white4)">Body measurement cadence</div><div style="display:flex;align-items:center;gap:8px"><select id="body-measurement-frequency" onchange="applyMeasurementFrequency(this.value)">${['weekly','biweekly','monthly','quarterly'].map(c=>`<option value="${c}"${c===defaultFreq?' selected':''}>${c}</option>`).join('')}</select><button class="btn btn-ghost btn-sm" type="button" onclick="applyMeasurementFrequency(document.getElementById('body-measurement-frequency').value)">Apply</button></div></div>`;
+    }
+    html+=`<div class="stat-edit-grid">`;
     grouped[gk].forEach(f=>{
       const val=latest?(latest.values[f.key]||''):'';const cyc=latest?(latest.cycles&&latest.cycles[f.key]?latest.cycles[f.key]:f.cycle):f.cycle;
-      html+=`<div class="stat-edit-item"><label>${f.label}${f.unit?' ('+f.unit+')':''}</label><input data-stat-key="${f.key}" value="${val}" placeholder="—"><select class="cycle-sel" data-cycle-key="${f.key}">${CYCLES.map(c=>`<option value="${c}"${c===cyc?' selected':''}>${c}</option>`).join('')}</select>${f.type==='custom'?`<button type="button" onclick="removeStat('${f.key}')" style="margin-top:4px;font-size:10px;color:var(--red3);background:none;border:none;cursor:pointer;text-decoration:underline">remove</button>`:''}</div>`;
+      const fieldEl = f.key==='dob' ? `<input type="date" data-stat-key="${f.key}" value="${val}" placeholder="—">` : `<input data-stat-key="${f.key}" value="${val}" placeholder="—">`;
+      html+=`<div class="stat-edit-item"><label>${f.label}${f.unit?' ('+f.unit+')':''}</label>${fieldEl}<select class="cycle-sel" data-cycle-key="${f.key}" data-field-type="${f.type}">${CYCLES.map(c=>`<option value="${c}"${c===cyc?' selected':''}>${c}</option>`).join('')}</select>${f.type==='custom'?`<button type="button" onclick="removeStat('${f.key}')" style="margin-top:4px;font-size:10px;color:var(--red3);background:none;border:none;cursor:pointer;text-decoration:underline">remove</button>`:''}</div>`;
     });html+=`</div>`;
   });
   document.getElementById('stat-edit-fields').innerHTML=html;openModal('modal-edit-stats');
 }
 function addCustomStat(){const n=document.getElementById('new-stat-name').value.trim();const u=document.getElementById('new-stat-unit').value.trim();if(!n)return;const k=n.toLowerCase().replace(/\s+/g,'_');if(S.statFields.find(f=>f.key===k)){toast('Already exists');return;}S.statFields.push({key:k,label:n,unit:u,cycle:'monthly',type:'custom'});saveS();document.getElementById('new-stat-name').value='';document.getElementById('new-stat-unit').value='';openEditStats();toast('Metric added');}
 function removeStat(k){S.statFields=S.statFields.filter(f=>f.key!==k);S.statHistory.forEach(e=>{delete e.values[k];});saveS();openEditStats();}
+function applyMeasurementFrequency(freq){document.querySelectorAll('.cycle-sel[data-field-type="measurement"]').forEach(el=>{el.value=freq;});}
+function setGender(value){const input=document.getElementById('gender-input');if(input){input.value=value;}document.querySelectorAll('.gender-toggle button').forEach(btn=>{btn.classList.toggle('active',btn.textContent===value);});}
+function updateAgePreview(){const dob=document.getElementById('dob-input')?.value;const preview=document.getElementById('age-preview');if(preview){preview.textContent=dob?`Age: ${calcAgeFromDob(dob)} yrs`:'Enter DOB to calculate age';}}
+function calcAgeFromDob(dob){if(!dob)return '';const today=new Date();const birth=new Date(dob);let age=today.getFullYear()-birth.getFullYear();const m=today.getMonth()-birth.getMonth();if(m<0|| (m===0 && today.getDate()<birth.getDate())) age--;return age>=0?age:'0';}
 function saveStats(){
   const date=document.getElementById('stat-entry-date').value||new Date().toISOString().split('T')[0];const values={},cycles={};
   document.querySelectorAll('[data-stat-key]').forEach(el=>{if(el.value.trim())values[el.dataset.statKey]=el.value.trim();});
@@ -1411,6 +1505,122 @@ function renderSettings(){
     <div id="fb-status" style="font-size:11px;color:var(--white4);margin-top:8px"></div>
   </div>`;
   document.getElementById('settings-body').innerHTML=html;
+}
+function renderCustomSoundSlots(){
+  const sounds=S.customSounds||[];
+  if(!sounds.length) return '<div style="font-size:12px;color:var(--white4);margin-bottom:12px">No custom sounds yet.</div>';
+  return sounds.map(sound=>`
+    <div class="custom-sound-slot ${currentSound===sound.id?'selected':''}" onclick="setSound('${sound.id}')">
+      <div style="flex:1;min-width:0">
+        <div style="font-size:12px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${sound.name}</div>
+        <div style="font-size:10px;color:var(--white4);margin-top:4px">Custom sound</div>
+      </div>
+      <button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();previewCustomSound('${sound.id}')">▶</button>
+    </div>
+  `).join('');
+}
+let customSoundDraft={name:'',src:'',blob:null,stream:null,mediaRecorder:null,recordedChunks:[]};
+let csRecordInterval=null;
+function openCustomSoundModal(){
+  customSoundDraft={name:'',src:'',blob:null,stream:null,mediaRecorder:null,recordedChunks:[]};
+  document.getElementById('cs-name').value='';
+  document.getElementById('cs-upload-status').textContent='';
+  document.getElementById('cs-preview-wrap').style.display='none';
+  document.getElementById('cs-preview-audio').src='';
+  document.getElementById('rec-status').textContent='Tap mic to start';
+  document.getElementById('rec-timer').textContent='0:00';
+  document.getElementById('rec-btn').textContent='🎙️';
+  openModal('modal-custom-sound');
+}
+function closeCustomSoundModal(){
+  stopRecording();
+  closeModal('modal-custom-sound');
+}
+function handleCustomSoundUpload(e){
+  const file=e.target.files[0];
+  if(!file)return;
+  if(!file.type.startsWith('audio/')){toast('Select an audio file');return;}
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    customSoundDraft.src=ev.target.result;
+    document.getElementById('cs-upload-status').textContent=file.name;
+    const audio=document.getElementById('cs-preview-audio');
+    audio.src=customSoundDraft.src;
+    document.getElementById('cs-preview-wrap').style.display='flex';
+  };
+  reader.readAsDataURL(file);
+}
+function saveCustomSound(){
+  const name=document.getElementById('cs-name').value.trim();
+  if(!name){toast('Enter a name');return;}
+  if(!customSoundDraft.src){toast('Upload or record audio');return;}
+  const id='custom:'+Date.now()+'-'+Math.random().toString(36).slice(2,8);
+  if(!S.customSounds)S.customSounds=[];
+  S.customSounds.push({id,name,src:customSoundDraft.src});
+  currentSound=id;
+  if(!S.settings)S.settings={};
+  S.settings.sound=id;
+  saveS();
+  closeCustomSoundModal();
+  renderSettings();
+  toast('Custom sound added and selected');
+}
+function blobToDataURL(blob){
+  return new Promise(resolve=>{
+    const reader=new FileReader();
+    reader.onload=ev=>resolve(ev.target.result);
+    reader.readAsDataURL(blob);
+  });
+}
+async function toggleRecording(){
+  if(customSoundDraft.mediaRecorder&&customSoundDraft.mediaRecorder.state==='recording'){stopRecording();return;}
+  await startRecording();
+}
+async function startRecording(){
+  const status=document.getElementById('rec-status');
+  const btn=document.getElementById('rec-btn');
+  if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){toast('Recording unsupported');return;}
+  try{
+    const stream=await navigator.mediaDevices.getUserMedia({audio:true});
+    const recorder=new MediaRecorder(stream);
+    customSoundDraft.stream=stream;
+    customSoundDraft.mediaRecorder=recorder;
+    customSoundDraft.recordedChunks=[];
+    recorder.ondataavailable=e=>{ if(e.data.size>0) customSoundDraft.recordedChunks.push(e.data); };
+    recorder.onstop=async()=>{
+      if(customSoundDraft.recordedChunks.length===0)return;
+      const blob=new Blob(customSoundDraft.recordedChunks,{type:'audio/webm'});
+      customSoundDraft.blob=blob;
+      customSoundDraft.src=await blobToDataURL(blob);
+      document.getElementById('cs-preview-audio').src=customSoundDraft.src;
+      document.getElementById('cs-preview-wrap').style.display='flex';
+      document.getElementById('cs-upload-status').textContent='Recorded audio';
+      status.textContent='Recording saved';
+    };
+    recorder.start();
+    btn.textContent='⏹';
+    status.textContent='Recording...';
+    let sec=0;
+    document.getElementById('rec-timer').textContent='0:00';
+    csRecordInterval=setInterval(()=>{sec++;document.getElementById('rec-timer').textContent=fmtSec(sec);},1000);
+  }catch(e){toast('Microphone access denied');}
+}
+function stopRecording(){
+  const btn=document.getElementById('rec-btn');
+  const status=document.getElementById('rec-status');
+  if(customSoundDraft.mediaRecorder&&customSoundDraft.mediaRecorder.state==='recording'){
+    customSoundDraft.mediaRecorder.stop();
+  }
+  if(customSoundDraft.stream){customSoundDraft.stream.getTracks().forEach(t=>t.stop());customSoundDraft.stream=null;}
+  if(csRecordInterval){clearInterval(csRecordInterval);csRecordInterval=null;}
+  btn.textContent='🎙️';
+  if(customSoundDraft.src){status.textContent='Recording ready';}
+  else{status.textContent='Tap mic to start';document.getElementById('rec-timer').textContent='0:00';}
+}
+function previewCustomSound(id){
+  const sound=(S.customSounds||[]).find(s=>s.id===id);
+  if(!sound||!sound.src)return;
+  const audio=new Audio(sound.src);audio.volume=0.85;audio.play().catch(()=>{});
 }
 function toggleLibraryBrowser(){
   const el=document.getElementById('library-browser');if(el.style.display==='block'){el.style.display='none';return;}
